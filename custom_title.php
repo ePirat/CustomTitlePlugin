@@ -1,15 +1,15 @@
 <?php
 // Get the correct ID for the plugin.
-$thisfile = basename(__FILE__, ".php");
+$plugin_id = basename(__FILE__, ".php");
 
 // Initiat Hooks
-add_action('plugins-sidebar', 'createSideMenu', array($thisfile, 'Custom Title'));
+add_action('plugins-sidebar', 'createSideMenu', array($plugin_id, 'Custom Title'));
 add_action('edit-extras','pageset',array());
 add_action('changedata-save', 'pagesetsav', array());
 
 // Define and initialize plugin
 register_plugin(
-    $thisfile, // Plugin ID
+    $plugin_id, // Plugin ID
     'Custom Title', // Plugin name
     '1.3', // Plugin version
     'ePirat', // Plugin author
