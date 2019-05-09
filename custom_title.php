@@ -22,7 +22,6 @@ register_plugin(
 // Initialize Administration page
 function custom_adm() {
     if (isset($_POST['text']) && (!empty($_POST['text']))){
-        get_magic_quotes_gpc();
         if (!file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
             mkdir(GSDATAOTHERPATH."customtitle/");	
         }
@@ -114,7 +113,6 @@ function pageset(){
 function pagesetsav() {
     global $xml;
     if (isset($_POST['customtitle'])) {
-        get_magic_quotes_gpc();
         $note = $xml->addChild('customtitle');
         $note->addCData($_POST['customtitle']);
     }
