@@ -11,7 +11,7 @@
 		register_plugin(
 			$thisfile,	// ID of plugin, should be filename minus php
 			'Custom Title',	# Title of plugin
-			'1.1',	// Version of plugin
+			'1.2',	// Version of plugin
 			'ePirat',	// Author of plugin
 			'http://epirat.de',	// Author URL
 			'This plugin adds the ability to use a custom title tag.',	// Plugin Description
@@ -30,11 +30,11 @@ if (isset($_POST['text']) && (!empty($_POST['text']))){
 if (file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
 	$text = file_get_contents(GSDATAOTHERPATH."customtitle/custom.txt");
 } else {
-	$text = "";
+	$text = "%pagetitle% - %sitename%";
 }
 ?>
 <h2>Custom Title's Administration</h2>
-	<h3>Change title tag:</h3>
+	<h3>Change default title tag:</h3>
 	<form method="post" action="">
 	<input type="text" name="text" size="80" value="<?php echo($text);?>"/>
 	<input type="submit" name="save" value="Save" />
@@ -106,9 +106,7 @@ function pageset(){
 	if (isset($data_edit->customtitle)) {
 		$data = $data_edit->customtitle;
 	} 
-	echo '<tr><td><b>Custom page title:</b> <input type="text" name="customtitle" value="'.$data.'"/>';
-	echo '</td>';
-	echo '</tr>';
+	echo '<p><lable for="customtitle">Custom page title:</lable> <input class="text" id="customtitle" type="text" name="customtitle" value="'.$data.'"/></p>';
 }
 
 function pagesetsav() {
