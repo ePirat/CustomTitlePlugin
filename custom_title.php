@@ -1,38 +1,38 @@
 <?php
 //Get the correct ID for the plugin.
-        $thisfile = basename(__FILE__, ".php");
+$thisfile = basename(__FILE__, ".php");
 
 //Initiat Hooks
-        add_action('plugins-sidebar', 'createSideMenu', array($thisfile, 'Custom Title'));
-        add_action('edit-extras','pageset',array());
-        add_action('changedata-save', 'pagesetsav', array());
+add_action('plugins-sidebar', 'createSideMenu', array($thisfile, 'Custom Title'));
+add_action('edit-extras','pageset',array());
+add_action('changedata-save', 'pagesetsav', array());
 
 //Define and Initiat Plugin
-        register_plugin(
-            $thisfile,	// ID of plugin, should be filename minus php
-            'Custom Title',	# Title of plugin
-            '1.3',	// Version of plugin
-            'ePirat',	// Author of plugin
-            'http://epirat.de',	// Author URL
-            'This plugin adds the ability to use a custom title tag.',	// Plugin Description
-            'plugins',	// Page type of plugin
-            'custom_adm'	// Function that displays content
-        );
+register_plugin(
+    $thisfile,	// ID of plugin, should be filename minus php
+    'Custom Title',	# Title of plugin
+    '1.3',	// Version of plugin
+    'ePirat',	// Author of plugin
+    'http://epirat.de',	// Author URL
+    'This plugin adds the ability to use a custom title tag.',	// Plugin Description
+    'plugins',	// Page type of plugin
+    'custom_adm'	// Function that displays content
+);
 
 //Initiat Addministration Page
 function custom_adm() {
-if (isset($_POST['text']) && (!empty($_POST['text']))){
-    get_magic_quotes_gpc();
-    if (!file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
-        mkdir(GSDATAOTHERPATH."customtitle/");	
+    if (isset($_POST['text']) && (!empty($_POST['text']))){
+        get_magic_quotes_gpc();
+        if (!file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
+            mkdir(GSDATAOTHERPATH."customtitle/");	
+        }
+        file_put_contents(GSDATAOTHERPATH."customtitle/custom.txt", $_POST['text']);
     }
-    file_put_contents(GSDATAOTHERPATH."customtitle/custom.txt", $_POST['text']);
-}
-if (file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
-    $text = file_get_contents(GSDATAOTHERPATH."customtitle/custom.txt");
-} else {
-    $text = "%pagetitle% - %sitename%";
-}
+    if (file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
+        $text = file_get_contents(GSDATAOTHERPATH."customtitle/custom.txt");
+    } else {
+        $text = "%pagetitle% - %sitename%";
+    }
 ?>
 <h2>Custom Title's Administration</h2>
     <h3>Change default title tag:</h3>
