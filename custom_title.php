@@ -11,7 +11,7 @@
 		register_plugin(
 			$thisfile,	// ID of plugin, should be filename minus php
 			'Custom Title',	# Title of plugin
-			'1.2',	// Version of plugin
+			'1.3',	// Version of plugin
 			'ePirat',	// Author of plugin
 			'http://epirat.de',	// Author URL
 			'This plugin adds the ability to use a custom title tag.',	// Plugin Description
@@ -22,6 +22,7 @@
 //Initiat Addministration Page
 function custom_adm() {
 if (isset($_POST['text']) && (!empty($_POST['text']))){
+	get_magic_quotes_gpc();
 	if (!file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
 		mkdir(GSDATAOTHERPATH."customtitle/");	
 	}
@@ -36,7 +37,7 @@ if (file_exists(GSDATAOTHERPATH."customtitle/custom.txt")){
 <h2>Custom Title's Administration</h2>
 	<h3>Change default title tag:</h3>
 	<form method="post" action="">
-	<input type="text" name="text" size="80" value="<?php echo($text);?>"/>
+	<input type="text" name="text" size="80" value="<?php echo(htmlspecialchars($text));?>"/>
 	<input type="submit" name="save" value="Save" />
 	</form>
 	<br /><br />
@@ -85,6 +86,7 @@ function get_custom_title_tag() {
 	} else {
 		$pagename = "";
 	}
+	$title = htmlspecialchars($title);
 	if ($rir = str_replace("%sitename%", $pagename, $title)){
 		$title = $rir;
 	}
@@ -106,15 +108,31 @@ function pageset(){
 	if (isset($data_edit->customtitle)) {
 		$data = $data_edit->customtitle;
 	} 
-	echo '<p><lable for="customtitle">Custom page title:</lable> <input class="text" id="customtitle" type="text" name="customtitle" value="'.$data.'"/></p>';
+	echo '<p><lable for="customtitle">Custom page title:</lable> <input class="text" id="customtitle" type="text" name="customtitle" value="'.htmlspecialchars($data).'"/></p>';
 }
 
 function pagesetsav() {
 	global $xml;
 	if (isset($_POST['customtitle'])) {
+		get_magic_quotes_gpc();
 		$note = $xml->addChild('customtitle');
 		$note->addCData($_POST['customtitle']);
 	}
 }
 
+if (get_magic_quotes_gpc()) {
+    $process = array(&$_POST);
+    while (list($key, $val) = each($process)) {
+        foreach ($val as $k => $v) {
+            unset($process[$key][$k]);
+            if (is_array($v)) {
+                $process[$key][stripslashes($k)] = $v;
+                $process[] = &$process[$key][stripslashes($k)];
+            } else {
+                $process[$key][stripslashes($k)] = stripslashes($v);
+            }
+        }
+    }
+    unset($process);
+}
 ?>
