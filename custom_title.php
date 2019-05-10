@@ -156,6 +156,9 @@ HTML;
         } else {
             // Read the default title
             $title = $this->getDefaultTitleSetting();
+            if ($title === false) {
+                $title = $this->default_title_default;
+            }
         }
 
         return $this->replaceTemplatePlaceholders($title);
