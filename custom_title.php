@@ -13,7 +13,7 @@ class CustomTitlePlugin
         register_plugin(
             $this->getPluginId(), // Plugin ID
             'Custom Title', // Plugin name
-            '1.3', // Plugin version
+            '1.4', // Plugin version
             'ePirat', // Plugin author
             'https://epir.at',	// Author website
             'This plugin adds the ability to use a custom title tag.', // Plugin description
