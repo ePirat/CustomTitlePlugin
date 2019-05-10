@@ -46,7 +46,12 @@ class CustomTitlePlugin
      */
     private function getPluginDataPath($filename = '')
     {
-        return GSDATAOTHERPATH . "customtitle/" . $filename;
+        $folder = GSDATAOTHERPATH . "customtitle/";
+
+        // Ensure folder exists
+        file_exists($folder) || mkdir($folder, 0755);
+
+        return $folder . $filename;
     }
 
     /**
