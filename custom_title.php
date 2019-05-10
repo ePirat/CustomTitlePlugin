@@ -193,7 +193,7 @@ HTML;
 
         echo <<<HTML
         <p>
-            <lable for="custom-title">Custom page title:</lable>
+            <label for="custom-title">Custom page title:</label>
             <input class="text" id="custom-title" type="text" name="customtitle" value="{$title}"/>
         </p>
 HTML;
