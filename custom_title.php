@@ -15,7 +15,7 @@ class CustomTitlePlugin
             'Custom Title', // Plugin name
             '1.3', // Plugin version
             'ePirat', // Plugin author
-            'http://epirat.de',	// Author website
+            'https://epir.at',	// Author website
             'This plugin adds the ability to use a custom title tag.', // Plugin description
             'plugins', // Page type of plugin
             array($this, 'renderSettingsPage') // Function that displays content
