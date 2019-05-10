@@ -143,7 +143,6 @@ class CustomTitlePlugin
         <p>To activate this plugin, replace in your theme <code>&lt;title&gt;…&lt;/title&gt;</code> with:</p>
         <pre class="unformatted"><code>&lt;title&gt;&lt;?php echo(get_custom_title_tag()); ?&gt;&lt;/title&gt;</code></pre></p>
 HTML;
-        $template = $this->getDefaultTitleSetting();
     }
 
     public function getCustomTitle()
